@@ -1,0 +1,8 @@
+.info {
+  background: #ddd;
+  border: 1px solid #ddd;
+  border-radius: 1.5rem;
+  margin: 1rem;
+  padding: 1rem;
+  width: max-content;
+}

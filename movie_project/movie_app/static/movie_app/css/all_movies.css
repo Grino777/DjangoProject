@@ -1,10 +1,18 @@
-ul li {
-    list-style-type: none;
-    width: 10rem;
-    border: 1px solid black;
-    border-radius: 1.5rem;
-    margin: 1rem;
-    padding: 1rem;
-    background-color: #dbd5c1;
-    margin-left: 0px;
+li {
+  background: #ddd;
+  border: 1px solid #ddd;
+  border-radius: 1.5rem;
+  margin: 1rem;
+  padding: 1rem;
+  width: 10rem;
+  list-style-type: none;
+}
+
+.menu li {
+  cursor: pointer;
+}
+
+.menu li > a {
+  display: block;
+  text-decoration: none;
 }
