@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Movie
-from django.db.models import F, Avg, Max, Min, Sum, Count
+from django.db.models import F, Avg, Max, Min, Sum, Count, Value
 
 def show_all_movie(request):
     movies = Movie.objects.all()
+    movies = Movie.objects.annotate(new_field_bool=Value(True))
     agg = movies.aggregate(Count('id'),
                            Avg('budget'),
                            Max('rating'),
