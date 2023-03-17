@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'movie_app/css/detail_info.css' %}">
+{% endblock %}
+
+{% block title %}
+    Режисеры
+{% endblock %}
+
+{% block content %}
+    <div class="info">
+        <h2>Имя - {{ director.first_name }}</h2>
+        <h2>Фамилия - {{ director.last_name }}</h2>
+        <h3>Email - {{ director.email }}</h3>
+    </div>
+{% endblock %}

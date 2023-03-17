@@ -16,6 +16,12 @@
         <h3>Рейтинг - {{ movie.rating }}</h3>
         <h3>Год выхода - {{ movie.year|default:'Неизвестно' }}</h3>
         <h3>Бюджет - {{ movie.budget }}</h3>
+        <h3>Режисер -
+            {% if movie.directors %}
+                <a href="{{movie.directors.get_url }}">{{ movie.directors }}</a></h3>
+            {% else %}
+                Неизвестно
+            {% endif %}
     </div>
 
 {% endblock %}
