@@ -1,9 +1,15 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
+from autoslug import AutoSlugField
+from slugify import slugify
 
+def instance_slug(instance):
+    return instance.slug
 
-# from transliterate import translit
+def slugify_value(value:str):
+    return value.replace(' ', '-')
+
 
 class Actor(models.Model):
     MALE = 'M'
@@ -17,12 +23,19 @@ class Actor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(choices=GENDERS, max_length=1, default=MALE)
-    slug = models.SlugField(null=False, db_index=True)
+    # slug = models.SlugField(blank=True, db_index=True, null=False, unique=True)
+    slug = AutoSlugField('SLUG', max_length=100, db_index=True,
+                         unique=True, populate_from=instance_slug, slugify=slugify_value)
+
 
     def __str__(self):
         if self.gender == self.MALE:
             return f'Актер {self.first_name} {self.last_name}'
         return f'Актриса {self.first_name} {self.last_name}'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f'{self.first_name} {self.last_name}')
+        super(Actor, self).save(*args, **kwargs)
 
     def get_url(self):
         return reverse('actor_info', args=(self.slug,))
@@ -32,7 +45,9 @@ class Director(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(blank=True)
-    slug = models.SlugField(null=False, db_index=True)
+    slug = AutoSlugField('SLUG', max_length=100, db_index=True,
+                         unique=True, populate_from=instance_slug, slugify=slugify_value)
+    # slug = models.SlugField(null=False, db_index=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -40,9 +55,9 @@ class Director(models.Model):
     def get_url(self):
         return reverse('director_info', args=(self.slug,))
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(translit(str(self), 'ru', reversed=True))
-    #     super(Director, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f'{self.first_name} {self.last_name}')
+        super(Director, self).save(*args, **kwargs)
 
 
 class Movie(models.Model):
@@ -61,12 +76,15 @@ class Movie(models.Model):
     year = models.IntegerField(null=True, blank=True)
     budget = models.IntegerField(default=1000000, validators=[MinValueValidator(1)])
     currency = models.CharField(max_length=3, choices=CURRNECY_CHOICES, default=RUB)
-    slug = models.SlugField(default='', null=False)
-    directors = models.ForeignKey(Director, on_delete=models.SET_NULL, null=True, blank=True)
+    directors = models.ForeignKey(Director, on_delete=models.SET_NULL, null=True, blank=True) #related_name - атрибут для изменения названия доступа к связным таблицам
     actors = models.ManyToManyField(Actor, blank=True)
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.name)
-    #     super(Movie, self).save(*args, **kwargs)
+    # slug = models.SlugField(default='', null=False)
+    slug = AutoSlugField('SLUG', max_length=100, db_index=True,
+                         unique=True, populate_from=instance_slug, slugify=slugify_value)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Movie, self).save(*args, **kwargs)
 
     def get_url(self):
         return reverse('movie_detail', args=[self.slug])
