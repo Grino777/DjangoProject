@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'includes/navbar.html' %}
     <h2>Список всех фильмов:</h2>
     <ul class="menu">
         {% for movie in movies %}

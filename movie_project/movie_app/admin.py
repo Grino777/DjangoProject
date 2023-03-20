@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import QuerySet
 
-from .models import Movie, Director
+from .models import Movie, Director, Actor
 
 
 # Register your models here.
@@ -33,21 +33,29 @@ class RatingFilter(admin.SimpleListFilter):
 
         return queryset
 
+
 @admin.register(Director)
 class DirectorAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', 'email', 'slug']
-    prepopulated_fields = {'slug': ('first_name', 'last_name'),}
+    prepopulated_fields = {'slug': ('first_name', 'last_name'), }
+
+
+@admin.register(Actor)
+class ActorAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('first_name', 'last_name'), }
+
 
 @admin.register(Movie)  # Регистрация БД в админке для ее дальнейшего отображения
 class MovieAdmin(admin.ModelAdmin):
     # fields = ['name', 'rating', 'year', 'currency', 'budget',] #Отображение полей в форме редактирования/создания записи
-    #exclude = ['slug']  # Исключает поля в форме редактирования/создания записи
-    prepopulated_fields = {'slug': ('name',),} #Предвычисляемое поле
+    # exclude = ['slug']  # Исключает поля в форме редактирования/создания записи
+    filter_horizontal = ['actors',]
+    prepopulated_fields = {'slug': ('name',), }  # Предвычисляемое поле
     list_display = ['name', 'rating', 'directors', 'budget', 'rating_status']  # Отображаемые поля в админке
     list_editable = ['directors', 'rating']  # Изменяемые поля
     ordering = ['-rating', 'name']  # Фильтрация полей по заданным колонкам при отображении их в админке
-    #readonly_fields = ['slug']  # Поля только для чтения
-    #list_per_page = 20  # Пагинация
+    # readonly_fields = ['slug']  # Поля только для чтения
+    # list_per_page = 20  # Пагинация
     actions = ['set_dollars', 'set_euro']  # Отображение действий с записями в админке
     search_fields = ['name', ]  # Поле поиска (нечувстительное к регистру sqlite)
     list_filter = [RatingFilter]

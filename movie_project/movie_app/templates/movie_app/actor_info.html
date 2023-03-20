@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block title %}
-    Режисеры
+    {{ actor }}
 {% endblock %}
 
 {% block content %}
     {% include 'includes/navbar.html' %}
     <div class="info">
-        <h2>Имя - {{ director.first_name }}</h2>
-        <h2>Фамилия - {{ director.last_name }}</h2>
-        <h3>Email - {{ director.email }}</h3>
+        <h2>Имя - {{ actor.first_name }}</h2>
+        <h2>Фамилия - {{ actor.last_name }}</h2>
+        <h2>Пол - {{ actor.gender }}</h2>
     </div>
 {% endblock %}
