@@ -20,9 +20,9 @@ class Actor(models.Model):
         (FEMALE, 'Жещина')
     ]
 
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    gender = models.CharField(choices=GENDERS, max_length=1, default=MALE)
+    first_name = models.CharField(max_length=100, verbose_name='Имя')
+    last_name = models.CharField(max_length=100, verbose_name='Фамилия')
+    gender = models.CharField(choices=GENDERS, max_length=1, default=MALE, verbose_name='Пол')
     # slug = models.SlugField(blank=True, db_index=True, null=False, unique=True)
     slug = AutoSlugField('SLUG', max_length=100, db_index=True,
                          unique=True, populate_from=instance_slug, slugify=slugify_value)
@@ -42,9 +42,9 @@ class Actor(models.Model):
 
 
 class Director(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField(blank=True)
+    first_name = models.CharField(max_length=100, verbose_name='Имя')
+    last_name = models.CharField(max_length=100, verbose_name='Фамилия')
+    email = models.EmailField(blank=True, verbose_name='Почта')
     slug = AutoSlugField('SLUG', max_length=100, db_index=True,
                          unique=True, populate_from=instance_slug, slugify=slugify_value)
     # slug = models.SlugField(null=False, db_index=True)
@@ -70,14 +70,14 @@ class Movie(models.Model):
         (EURO, 'Euro'),
     ]
 
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40, verbose_name='Название фильма')
     rating = models.IntegerField(validators=[MinValueValidator(1),
-                                             MaxValueValidator(100)])
-    year = models.IntegerField(null=True, blank=True)
-    budget = models.IntegerField(default=1000000, validators=[MinValueValidator(1)])
-    currency = models.CharField(max_length=3, choices=CURRNECY_CHOICES, default=RUB)
-    directors = models.ForeignKey(Director, on_delete=models.SET_NULL, null=True, blank=True) #related_name - атрибут для изменения названия доступа к связным таблицам
-    actors = models.ManyToManyField(Actor, blank=True)
+                                             MaxValueValidator(100)], verbose_name='Рейтинг')
+    year = models.IntegerField(null=True, blank=True, verbose_name='Год')
+    budget = models.IntegerField(default=1000000, validators=[MinValueValidator(1)], verbose_name='Бюджет')
+    currency = models.CharField(max_length=3, choices=CURRNECY_CHOICES, default=RUB, verbose_name='Валюта')
+    directors = models.ForeignKey(Director, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Режисер') #related_name - атрибут для изменения названия доступа к связным таблицам
+    actors = models.ManyToManyField(Actor, blank=True, verbose_name='Актеры')
     # slug = models.SlugField(default='', null=False)
     slug = AutoSlugField('SLUG', max_length=100, db_index=True,
                          unique=True, populate_from=instance_slug, slugify=slugify_value)
