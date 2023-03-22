@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'feedback/css/form.css' %}">
+</head>
+<body>
+    <h2>Оставьте ваш отзыв</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-style">
+                {{ field.label_tag }}
+                {{ field.errors }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit">Отправить</button>
+        </form>
+
+</body>
+</html>
