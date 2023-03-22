@@ -28,7 +28,6 @@ button {
     background-color: #bf0d55;
     color: white;
     border: 10px solid #bf0d55;
-    border-radius: 5px;
 }
 
 button:hover,
@@ -51,23 +50,13 @@ button:active {
 }
 
 .form-style input:focus {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.errorlist {
-    list-stle: none;
-    margin: 0;
-    padding: 0;
-    color: #ff2650;
-}
-
-.errors input {
-    border-color: #aa1754;
+    border-color: #1f0050;
     background-color: #f4eeff;
+    outline: none;
 }
 
-.errors label {
-    color: #aaff54;
+.form-style label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
 }
