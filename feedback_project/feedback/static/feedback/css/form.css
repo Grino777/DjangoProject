@@ -3,8 +3,8 @@ body {
     font-family: Sans-Serif;
 }
 
-h2 {
-    width: 50%;
+h2{
+    width:50%;
     margin: 20px auto 5px;
     text-align: center;
     padding: 5px;
@@ -59,4 +59,20 @@ button:active {
     font-weight: bold;
     display: block;
     margin-bottom: 0.5rem;
+}
+
+.errorlist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: #ff2650
+}
+
+.errors input {
+    border-color: #aa1754;
+    background-color: #f4eeff;
+}
+
+.errors label{
+ color: #aaff54;
 }
