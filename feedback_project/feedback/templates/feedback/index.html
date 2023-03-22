@@ -9,7 +9,7 @@
 </head>
 <body>
     <h2>Оставьте ваш отзыв</h2>
-    <form action="" method="post">
+    <form method="post">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-style {% if field.errors %} errors {% endif %} ">
