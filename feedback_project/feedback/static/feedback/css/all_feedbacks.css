@@ -8,3 +8,12 @@
     box-shadow: 0 2px 8px #3ca3c1;
     margin: 1rem;
 }
+
+.style-feedback div {
+  cursor: pointer;
+}
+
+div > a {
+  display: block;
+  text-decoration: none;
+}
