@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>DONE</title>
-</head>
-<body>
-    <h2>Ваш отзыв успешно отправлен!</h2>
-</body>
-</html>
+{% extends 'feedback/base.html' %}
+
+{% load static %}
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'feedback/css/done.css' %}">
+{% endblock %}
+
+{% block title %}
+    DONE
+{% endblock %}
+
+{% block content %}
+    <h2>Отзыв успешно оставлен</h2>
+{% endblock %}

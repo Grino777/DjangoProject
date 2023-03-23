@@ -36,8 +36,8 @@ class FeedbackForm(forms.ModelForm):
                 'required': 'Поле не заполнено',
             },
             'rating': {
-                'max_lenght': 'Рейтинг должен быть от 1 до 5',
-                'min_length': 'Рейтинг должен быть от 1 до 5',
+                'max_value': 'Рейтинг должен быть не больше 5',
+                'min_value': 'Рейтинг должен быть не меньше 1',
                 'required': 'Поле не заполнено',
             }
         }

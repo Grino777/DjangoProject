@@ -1,0 +1,20 @@
+{% extends 'feedback/base.html' %}
+
+{% load static %}
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'feedback/css/all_feedbacks.css' %}">
+{% endblock %}
+
+{% block title %}
+    Отзыв
+{% endblock %}
+
+{% block content %}
+    <div class="feedback-info">
+        <h2>Имя - {{ feedback.name }}</h2>
+        <h2>Фамилия - {{ feedback.surname }}</h2>
+        <h2>Отзыв - {{ feedback.feedback }}</h2>
+        <h2>Рейтинг - {{ feedback.rating }}</h2>
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+.style-feedback {
+    width: 90%;
+    max-width: 40rem;
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: white;
+    box-shadow: 0 2px 8px #3ca3c1;
+    margin: 1rem;
+}
