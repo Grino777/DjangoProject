@@ -45,7 +45,7 @@ class Director(models.Model):
     first_name = models.CharField(max_length=100, verbose_name='Имя')
     last_name = models.CharField(max_length=100, verbose_name='Фамилия')
     email = models.EmailField(blank=True, verbose_name='Почта')
-    slug = AutoSlugField('SLUG', max_length=100, db_index=True,
+    slug = AutoSlugField('slug', max_length=100, db_index=True,
                          unique=True, populate_from=instance_slug, slugify=slugify_value)
     # slug = models.SlugField(null=False, db_index=True)
 
