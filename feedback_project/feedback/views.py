@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.views.generic import DetailView, TemplateView, ListView
-from django.urls import reverse
+from django.views.generic import DetailView, TemplateView, ListView, FormView, CreateView, UpdateView
 from .forms import FeedbackForm
 from .models import Feedback
 
@@ -10,20 +8,51 @@ from django.views import View
 
 # Create your views here.
 
-class FeedbackView(View):
-    def get(self, request):
-        form = FeedbackForm()
-        return render(request, 'feedback/index.html', context={'form': form})
+class FeedbackViewUpdate(UpdateView):
+    model = Feedback
+    form_class = FeedbackForm
+    template_name = 'feedback/index.html'
+    success_url = '/done'
 
-    def post(self, request):
-        if request.method == 'POST':
-            form = FeedbackForm(request.POST)
-            if form.is_valid():
-                print(form.cleaned_data)
-                form.save()
-                return HttpResponseRedirect('/done')
-            else:
-                return render(request, 'feedback/index.html', context={'form': form})
+class FeedbackView(CreateView):
+    '''Класс для отображени/сохранения данных формы с указанием БД.
+    !Можно не указывать form_class, тогда форма построится на основании модели, НО есть ограничения по настройке полей.'''
+    model = Feedback #Куда будут сохранятся данные с формы
+    form_class = FeedbackForm #Перечисление полей формы
+    template_name = 'feedback/index.html'
+    success_url = '/done'
+
+
+
+# class FeedbackView(FormView):
+#     '''Класс для отображения формы и передачи ее в шаблон.'''
+#     # ----атрибуты заменяющие get-запрос----
+#     form_class = FeedbackForm #На основе какого класса будет отображаться форма
+#     template_name = 'feedback/index.html'
+#     #----------------------------------------
+#
+#     success_url = '/done' #Перенаправление в случае успешной обработки формы
+#
+#     def form_valid(self, form):
+#         '''Метод заменяющий post-запрос. Отправляет в шаблон форму под переменной form.'''
+#         form.save()
+#         return super(FeedbackView).form_valid(form)
+
+# class FeedbackView(View):
+#     ''' Отображение формы на основе класса View'''
+#     def get(self, request):
+#         form = FeedbackForm()
+#         return render(request, 'feedback/index.html', context={'form': form})
+#
+#     def post(self, request):
+#         if request.method == 'POST':
+#             form = FeedbackForm(request.POST)
+#             if form.is_valid():
+#                 print(form.cleaned_data)
+#                 form.save()
+#                 return HttpResponseRedirect('/done')
+#             else:
+#                 return render(request, 'feedback/index.html', context={'form': form})
 
 # def index(request):
 #     if request.method == 'POST':

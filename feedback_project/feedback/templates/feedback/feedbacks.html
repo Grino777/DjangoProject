@@ -14,11 +14,10 @@
     <h2>Все отзывы:</h2>
     {% for feed in feedbacks %}
         <div class="style-feedback">
-            <a href="{% url 'feedback_info' feed.id  %}">
+<!--            <a href="{% url 'feedback_info' feed.id  %}">-->
                 <h2>Имя - {{ feed.name }}</h2>
                 <h2>Отзыв - {{ feed.feedback }}</h2>
                 <h2>Рейтинг - {{ feed.rating }}</h2>
-            </a>
         </div>
     {% endfor %}
 {% endblock %}
