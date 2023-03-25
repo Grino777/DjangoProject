@@ -16,5 +16,6 @@
         <h2>Фамилия - {{ feedback.surname }}</h2>
         <h2>Отзыв - {{ feedback.feedback }}</h2>
         <h2>Рейтинг - {{ feedback.rating }}</h2>
+        <a href="{% url 'update_feedback' feedback.id %}"><h2>Редактировать</h2></a>
     </div>
 {% endblock %}
