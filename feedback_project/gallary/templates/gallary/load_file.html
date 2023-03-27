@@ -1,0 +1,20 @@
+{% extends 'feedback/base.html' %}
+
+{% load static %}
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'feedback/css/form.css' %}">
+{% endblock %}
+
+{% block title %}
+    Добавление файла в шаллерею
+{% endblock %}
+
+{% block content %}
+    <h2>Загрузите файл</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Загрузить</button>
+        </form>
+{% endblock %}
